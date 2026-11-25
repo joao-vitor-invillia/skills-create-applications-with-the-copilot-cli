@@ -1,45 +1,45 @@
 const { spawnSync } = require('child_process');
 const path = require('path');
-const { add, subtract, multiply, divide } = require('../calculator');
+const { addition, subtraction, multiplication, division } = require('../calculator');
 
 const CLI = path.join(__dirname, '..', 'calculator.js');
 const run = (...args) => spawnSync('node', [CLI, ...args], { encoding: 'utf8' });
 
 describe('addition', () => {
-  test('2 + 3 = 5', () => expect(add(2, 3)).toBe(5));
-  test('negative numbers', () => expect(add(-2, -3)).toBe(-5));
-  test('mixed signs', () => expect(add(-2, 3)).toBe(1));
-  test('with zero', () => expect(add(7, 0)).toBe(7));
-  test('decimals', () => expect(add(0.1, 0.2)).toBeCloseTo(0.3));
+  test('2 + 3 = 5', () => expect(addition(2, 3)).toBe(5));
+  test('negative numbers', () => expect(addition(-2, -3)).toBe(-5));
+  test('mixed signs', () => expect(addition(-2, 3)).toBe(1));
+  test('with zero', () => expect(addition(7, 0)).toBe(7));
+  test('decimals', () => expect(addition(0.1, 0.2)).toBeCloseTo(0.3));
 });
 
 describe('subtraction', () => {
-  test('10 - 4 = 6', () => expect(subtract(10, 4)).toBe(6));
-  test('result negative', () => expect(subtract(4, 10)).toBe(-6));
-  test('negative operand', () => expect(subtract(5, -3)).toBe(8));
-  test('with zero', () => expect(subtract(7, 0)).toBe(7));
-  test('decimals', () => expect(subtract(0.5, 0.2)).toBeCloseTo(0.3));
+  test('10 - 4 = 6', () => expect(subtraction(10, 4)).toBe(6));
+  test('result negative', () => expect(subtraction(4, 10)).toBe(-6));
+  test('negative operand', () => expect(subtraction(5, -3)).toBe(8));
+  test('with zero', () => expect(subtraction(7, 0)).toBe(7));
+  test('decimals', () => expect(subtraction(0.5, 0.2)).toBeCloseTo(0.3));
 });
 
 describe('multiplication', () => {
-  test('45 * 2 = 90', () => expect(multiply(45, 2)).toBe(90));
-  test('by zero', () => expect(multiply(5, 0)).toBe(0));
-  test('negative numbers', () => expect(multiply(-4, -3)).toBe(12));
-  test('mixed signs', () => expect(multiply(-4, 3)).toBe(-12));
-  test('decimals', () => expect(multiply(1.5, 2)).toBe(3));
+  test('45 * 2 = 90', () => expect(multiplication(45, 2)).toBe(90));
+  test('by zero', () => expect(multiplication(5, 0)).toBe(0));
+  test('negative numbers', () => expect(multiplication(-4, -3)).toBe(12));
+  test('mixed signs', () => expect(multiplication(-4, 3)).toBe(-12));
+  test('decimals', () => expect(multiplication(1.5, 2)).toBe(3));
 });
 
 describe('division', () => {
-  test('20 / 5 = 4', () => expect(divide(20, 5)).toBe(4));
-  test('non-integer result', () => expect(divide(1, 4)).toBe(0.25));
-  test('negative numbers', () => expect(divide(-20, -5)).toBe(4));
-  test('mixed signs', () => expect(divide(20, -5)).toBe(-4));
-  test('zero numerator', () => expect(divide(0, 5)).toBe(0));
+  test('20 / 5 = 4', () => expect(division(20, 5)).toBe(4));
+  test('non-integer result', () => expect(division(1, 4)).toBe(0.25));
+  test('negative numbers', () => expect(division(-20, -5)).toBe(4));
+  test('mixed signs', () => expect(division(20, -5)).toBe(-4));
+  test('zero numerator', () => expect(division(0, 5)).toBe(0));
   test('division by zero throws', () => {
-    expect(() => divide(1, 0)).toThrow('Divisão por zero');
+    expect(() => division(1, 0)).toThrow('Divisão por zero');
   });
   test('zero divided by zero throws', () => {
-    expect(() => divide(0, 0)).toThrow('Divisão por zero');
+    expect(() => division(0, 0)).toThrow('Divisão por zero');
   });
 });
 
