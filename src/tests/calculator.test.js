@@ -1,6 +1,6 @@
 const { spawnSync } = require('child_process');
 const path = require('path');
-const { addition, subtraction, multiplication, division } = require('../calculator');
+const { addition, subtraction, multiplication, division, modulo, power, squareRoot } = require('../calculator');
 
 const CLI = path.join(__dirname, '..', 'calculator.js');
 const run = (...args) => spawnSync('node', [CLI, ...args], { encoding: 'utf8' });
@@ -40,6 +40,45 @@ describe('division', () => {
   });
   test('zero divided by zero throws', () => {
     expect(() => division(0, 0)).toThrow('Divisão por zero');
+  });
+});
+
+describe('modulo', () => {
+  test('5 % 2 = 1', () => expect(modulo(5, 2)).toBe(1));
+  test('exact division', () => expect(modulo(10, 5)).toBe(0));
+  test('dividend smaller than divisor', () => expect(modulo(2, 5)).toBe(2));
+  test('negative dividend keeps sign', () => expect(modulo(-5, 3)).toBe(-2));
+  test('negative divisor', () => expect(modulo(5, -3)).toBe(2));
+  test('decimals', () => expect(modulo(5.5, 2)).toBeCloseTo(1.5));
+  test('zero dividend', () => expect(modulo(0, 5)).toBe(0));
+  test('modulo by zero throws', () => {
+    expect(() => modulo(5, 0)).toThrow('Módulo por zero');
+  });
+});
+
+describe('power', () => {
+  test('2 ^ 3 = 8', () => expect(power(2, 3)).toBe(8));
+  test('exponent zero', () => expect(power(5, 0)).toBe(1));
+  test('exponent one', () => expect(power(7, 1)).toBe(7));
+  test('zero base', () => expect(power(0, 3)).toBe(0));
+  test('0 ^ 0 = 1', () => expect(power(0, 0)).toBe(1));
+  test('negative exponent', () => expect(power(2, -2)).toBe(0.25));
+  test('negative base, odd exponent', () => expect(power(-2, 3)).toBe(-8));
+  test('negative base, even exponent', () => expect(power(-2, 2)).toBe(4));
+  test('fractional exponent', () => expect(power(9, 0.5)).toBe(3));
+});
+
+describe('squareRoot', () => {
+  test('√16 = 4', () => expect(squareRoot(16)).toBe(4));
+  test('√0 = 0', () => expect(squareRoot(0)).toBe(0));
+  test('√1 = 1', () => expect(squareRoot(1)).toBe(1));
+  test('non-perfect square', () => expect(squareRoot(2)).toBeCloseTo(1.41421356));
+  test('decimal input', () => expect(squareRoot(0.25)).toBe(0.5));
+  test('negative number throws', () => {
+    expect(() => squareRoot(-1)).toThrow('raiz quadrada de um número negativo');
+  });
+  test('large negative number throws', () => {
+    expect(() => squareRoot(-1e10)).toThrow('número negativo');
   });
 });
 
